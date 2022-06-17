@@ -4,4 +4,5 @@ export type Certificate = {
   intervention: string;
   reference: string;
   identifier: string;
+  certificate: string;
 };

@@ -13,20 +13,24 @@ export class SearchComponent implements OnInit {
   searchTerm: string = '';
   searching: boolean | undefined;
   subscription: Observable<any> | undefined;
-  certifictes: any[] = [];
+  certificates: any[] = [];
+  error: string = '';
   ngOnInit() {}
 
   search() {
+    this.searching = true;
     this.service
       .getCertificates(this.searchTerm)
       .pipe(take(1))
       .subscribe(
         (res) => {
-          console.log(res);
+          this.searching = false;
+          this.certificates = res;
         },
-        (error) => {}
+        (error) => {
+          this.searching = false;
+          this.error = error.message;
+        }
       );
-    console.log(this.searchTerm);
-    console.log(environment.url);
   }
 }

@@ -3,14 +3,6 @@
     <h3>Welcome to Certificates Center</h3>
   </div>
 </div>
-<div>
-  <embed
-    src="https://sumanbogati.github.io/tiny.pdf"
-    width="60px"
-    height="50px"
-  />
-</div>
-
 <div class="form-div">
   <!-- <form class="form">
     <mat-form-field class="w-100" appearance="outline">
@@ -34,7 +26,13 @@
     <mat-form-field class="w-3/5" appearance="outline">
       <mat-label>Passport number/ Namba ya hati ya kusafiria</mat-label>
       <mat-icon matPrefix>search</mat-icon>
-      <input [(ngModel)]="searchTerm" matInput />
+      <input
+        [(ngModel)]="searchTerm"
+        matInput
+        autocomplete="off"
+        autocapitalize="off"
+        autofocus="off"
+      />
     </mat-form-field>
     <button
       [disabled]="!searchTerm"
@@ -50,6 +48,6 @@
   <mat-progress-bar mode="indeterminate" *ngIf="searching"></mat-progress-bar>
 </div>
 
-<div>
-  <app-table></app-table>
+<div class="p-20" *ngIf="certificates.length > 0 && !searching">
+  <app-table [certificates]="certificates"></app-table>
 </div>
