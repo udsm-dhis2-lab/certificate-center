@@ -3,6 +3,7 @@
     <h3>Welcome to Certificates Center</h3>
   </div>
 </div>
+
 <div class="form-div">
   <!-- <form class="form">
     <mat-form-field class="w-100" appearance="outline">
@@ -32,7 +33,11 @@
         autocomplete="off"
         autocapitalize="off"
         autofocus="off"
+        (keyup.enter)="search()"
       />
+      <mat-hint align="start"
+        ><strong>Use any identifier registered with your certificates</strong>
+      </mat-hint>
     </mat-form-field>
     <button
       [disabled]="!searchTerm"
@@ -47,7 +52,6 @@
   </div>
   <mat-progress-bar mode="indeterminate" *ngIf="searching"></mat-progress-bar>
 </div>
-
 <div class="p-20" *ngIf="certificates.length > 0 && !searching">
   <app-table [certificates]="certificates"></app-table>
 </div>

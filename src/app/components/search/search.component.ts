@@ -18,19 +18,21 @@ export class SearchComponent implements OnInit {
   ngOnInit() {}
 
   search() {
-    this.searching = true;
-    this.service
-      .getCertificates(this.searchTerm)
-      .pipe(take(1))
-      .subscribe(
-        (res) => {
-          this.searching = false;
-          this.certificates = res;
-        },
-        (error) => {
-          this.searching = false;
-          this.error = error.message;
-        }
-      );
+    if (this.searchTerm !== '') {
+      this.searching = true;
+      this.service
+        .getCertificates(this.searchTerm)
+        .pipe(take(1))
+        .subscribe(
+          (res) => {
+            this.searching = false;
+            this.certificates = res;
+          },
+          (error) => {
+            this.searching = false;
+            this.error = error.message;
+          }
+        );
+    }
   }
 }
