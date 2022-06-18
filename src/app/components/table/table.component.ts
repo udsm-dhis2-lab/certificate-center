@@ -32,6 +32,7 @@ export class TableComponent implements OnInit {
       width: 'auto',
       enterAnimationDuration: '3000ms',
       exitAnimationDuration: '150ms',
+      disableClose: true,
       data,
     });
   }

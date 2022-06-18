@@ -1,57 +1,48 @@
-<div class="header">
-  <div>
-    <h3>Welcome to Certificates Center</h3>
-  </div>
+<div class="header pt-10">
+  <h3>Welcome to Certificates Center</h3>
 </div>
 
-<div class="form-div">
-  <!-- <form class="form">
-    <mat-form-field class="w-100" appearance="outline">
-      <mat-label class="text-3xl font-bold">Search</mat-label>
-      <input
-        matInput
-        #message
-        maxlength="256"
-        placeholder="Search Your Certificates..."
-      />
-      <mat-icon matPrefix>search</mat-icon>
-      <mat-hint align="start"
-        ><strong>Use any identifier registered with your certificates</strong>
-      </mat-hint>
-      <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
-    </mat-form-field>
-  </form> -->
-  <!-- <p>Search for License Number</p> -->
-
-  <div class="form">
-    <mat-form-field class="w-3/5" appearance="outline">
-      <mat-label>Passport number/ Namba ya hati ya kusafiria</mat-label>
-      <mat-icon matPrefix>search</mat-icon>
-      <input
-        [(ngModel)]="searchTerm"
-        matInput
-        autocomplete="off"
-        autocapitalize="off"
-        autofocus="off"
-        (keyup.enter)="search()"
-      />
-      <mat-hint align="start"
-        ><strong>Use any identifier registered with your certificates</strong>
-      </mat-hint>
-    </mat-form-field>
-    <button
-      [disabled]="!searchTerm"
-      class="ml-1 h-12"
-      mat-flat-button
-      color="primary"
-      aria-label=""
-      (click)="search()"
+<div class="form">
+  <mat-form-field class="w-2/5 pr-10" appearance="outline">
+    <mat-label>Use any identifier registered with your certificates</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
+    <input
+      [(ngModel)]="searchTerm"
+      matInput
+      autocomplete="off"
+      autocapitalize="off"
+      autofocus="off"
+      placeholder="Use any identifier registered with your certificates"
+      (keyup.enter)="search()"
+    />
+  </mat-form-field>
+  <button
+    [disabled]="!searchTerm"
+    mat-flat-button
+    color="primary"
+    [style.height]="'50px'"
+    [style.width]="'100px'"
+    (click)="search()"
+  >
+    {{ language == "sw" ? "TAFUTA" : "SEARCH" }}
+  </button>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="searching"></mat-progress-bar>
+<div
+  class="flex flex-row justify-center"
+  *ngIf="certificates.length == 0 && !initialization"
+>
+  <span class="text-red-400"
+    >You don't have any certificates registered with the identifier:
+    <strong>{{ identifier }}</strong></span
+  >
+</div>
+<div class="px-20 py-5" *ngIf="certificates.length > 0 && !searching">
+  <div class="p-5">
+    <span
+      >Hello <strong>{{ certificates[0].name }}</strong
+      >, below is the list of your certificates</span
     >
-      TAFUTA / SEARCH
-    </button>
   </div>
-  <mat-progress-bar mode="indeterminate" *ngIf="searching"></mat-progress-bar>
-</div>
-<div class="p-20" *ngIf="certificates.length > 0 && !searching">
   <app-table [certificates]="certificates"></app-table>
 </div>

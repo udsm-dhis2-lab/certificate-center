@@ -11,24 +11,33 @@ import { CertificateService } from '../../core/services/certificate.service';
 export class SearchComponent implements OnInit {
   constructor(private service: CertificateService) {}
   searchTerm: string = '';
+  identifier: string = '';
   searching: boolean | undefined;
   subscription: Observable<any> | undefined;
   certificates: any[] = [];
   error: string = '';
-  ngOnInit() {}
+  language: string = '';
+  initialization: boolean = true;
+  ngOnInit() {
+    this.language = navigator.language;
+  }
 
   search() {
+    this.initialization = false;
     if (this.searchTerm !== '') {
+      this.identifier = this.searchTerm;
       this.searching = true;
       this.service
         .getCertificates(this.searchTerm)
         .pipe(take(1))
         .subscribe(
           (res) => {
+            this.searchTerm = '';
             this.searching = false;
             this.certificates = res;
           },
           (error) => {
+            this.searchTerm = '';
             this.searching = false;
             this.error = error.message;
           }
