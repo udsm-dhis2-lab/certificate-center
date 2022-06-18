@@ -37,9 +37,14 @@ export class SearchComponent implements OnInit {
             this.certificates = res;
           },
           (error) => {
+            console.log(error);
             this.searchTerm = '';
             this.searching = false;
-            this.error = error.message;
+            if (error.message.includes('Unknown Error')) {
+              this.error = 'Please check your internet connection.';
+            } else {
+              this.error = error.message;
+            }
           }
         );
     }
