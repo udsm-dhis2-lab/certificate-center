@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.initialization = false;
+    this.error = '';
     if (this.searchTerm !== '') {
       this.identifier = this.searchTerm;
       this.searching = true;
@@ -37,14 +38,12 @@ export class SearchComponent implements OnInit {
             this.certificates = res;
           },
           (error) => {
-            console.log(error);
             this.searchTerm = '';
             this.searching = false;
-            if (error.message.includes('Unknown Error')) {
+            if (!navigator.onLine) {
               this.error = 'Please check your internet connection.';
-            } else {
-              this.error = error.message;
             }
+            this.error = error.message;
           }
         );
     }
